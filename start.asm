@@ -38,10 +38,10 @@ mboot:
     dd end
     dd start
 
-; This is an endless loop here. Make a note of this: Later on, we
-; will insert an 'extern _main', followed by 'call _main', right
-; before the 'jmp $'.
+; Call start and sit in infinite loop.
 stublet:
+    extern _start
+    call _start
     jmp $
 
 

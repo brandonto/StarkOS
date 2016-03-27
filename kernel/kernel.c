@@ -1,9 +1,9 @@
 #include <string.h>
 #include <system.h>
 
-void main()
+void start()
 {
 
     // Infinit loop
-    while (true);
+    while (1);
 }
