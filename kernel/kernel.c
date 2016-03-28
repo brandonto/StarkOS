@@ -11,6 +11,7 @@
 // March 27, 2016
 //
 //******************************************************************************
+#include <gdt.h>
 #include <string.h>
 #include <system.h>
 #include <vga.h>
@@ -20,9 +21,14 @@ int main()
 {
     const char *hello_world = "Hello world!";
 
+    // Set up global descriptor table
+    gdt_init();
+
+    // Hello world test
     vga_clear();
     vga_puts((unsigned char*)hello_world);
 
     // Infinite loop
     while (1);
 }
+

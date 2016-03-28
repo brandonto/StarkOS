@@ -3,10 +3,6 @@
 ;
 ; Entry point for Kernel. Taken from Bran's Kernel Development.
 ;
-; This is the kernel's entry point. We could either call main here,
-; or we can use this to setup the stack or other nice stuff, like
-; perhaps setting up the GDT and segments. Please note that interrupts
-; are disabled at this point: More on interrupts later!
 [BITS 32]
 
 global start
@@ -46,8 +42,20 @@ stublet:
     call main
     jmp $
 
-
-; Shortly we will add code for loading the GDT right here!
+; Load the GDT
+global gdt_flush
+extern gdtptr
+gdt_flush:
+    lgdt [gdtptr]   ; Load GDT
+    mov ax, 0x10   ; 0x10 is the offset in the GDT to data segment
+    mov ds, ax
+    mov es, ax
+    mov fs, ax
+    mov gs, ax
+    mov ss, ax
+    jmp 0x08:flush2 ; 0x08 is the offset in the GDT to code segment
+flush2:
+    ret             ; Returns to C
 
 
 ; In just a few pages in this tutorial, we will add our Interrupt
