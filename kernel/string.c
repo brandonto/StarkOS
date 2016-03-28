@@ -15,19 +15,32 @@
 
 void *memcpy(void *dest, const void *src, size_t n)
 {
-    // TODO (Brandon): Implementation
+    size_t i = 0;
+    while (i<n)
+    {
+        *((char*)dest+i) = *((const char*)src+i);
+        i++;
+    }
     return dest;
 }
 
-void *memset(void *s, int c, size_t n)
+void *memset(void *str, int c, size_t n)
 {
-    // TODO (Brandon): Implementation
-    return s;
+    size_t i = 0;
+    while (i<n)
+    {
+        *((char*)str+i++) = (char)(c);
+    }
+    return str;
 }
 
-size_t strlen(const char *s)
+size_t strlen(const char *str)
 {
-    // TODO (Brandon): Implementation
-    return 0;
+    size_t len = 0;
+    while (*(str+len) != '\0')
+    {
+        len++;
+    }
+    return len;
 }
 

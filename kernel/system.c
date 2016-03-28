@@ -15,12 +15,13 @@
 
 uint8_t inportb(uint16_t port)
 {
-    // TODO (Brandon): Implementation
-    return 0;
+    unsigned char rv;
+    __asm__ __volatile__ ("inb %1, %0" : "=a" (rv) : "dN" (_port));
+    return rv;
 }
 
 void outportb(uint16_t port, uint8_t data)
 {
-    // TODO (Brandon): Implementation
+    __asm__ __volatile__ ("outb %1, %0" : : "dN" (_port), "a" (_data));
 }
 
