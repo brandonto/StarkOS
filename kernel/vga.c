@@ -13,10 +13,11 @@
 //******************************************************************************
 #include <vga.h>
 
+#include <string.h>
 #include <system.h>
 
 // Address of VGA memory buffer
-static uint16_t *_vga_memptr = (*uint16_t)0xB8000;
+static uint16_t *_vga_memptr = (uint16_t*)0xB8000;
 static uint8_t _attribute = 0x0F;
 static int _cursor_x = 0;
 static int _cursor_y = 0;
@@ -32,7 +33,7 @@ void vga_settextcolor(uint8_t forecolor, uint8_t backcolor)
 
 void vga_putch(unsigned char c)
 {
-    uint16_t mem_loc;
+    uint16_t *mem_loc;
 
     // Backspace
     if (c == 0x08)
@@ -47,7 +48,7 @@ void vga_putch(unsigned char c)
     else if (c == 0x09)
     {
         // Increment x to the nearest column that is divisible by 8
-        _cursor_x = (_cursor_x + 8) & ~(8 - 1)
+        _cursor_x = (_cursor_x + 8) & ~(8 - 1);
     }
     // Carriage return
     else if (c == '\r')
@@ -67,7 +68,7 @@ void vga_putch(unsigned char c)
     {
         // Calculate memory location and write to it
         mem_loc = _vga_memptr + _cursor_y*VGA_SCREEN_WIDTH + _cursor_x;
-        *mem_loc = VGA_WORD(attr, c);
+        *mem_loc = VGA_WORD(_attribute, c);
         _cursor_x++;
     }
 
@@ -88,15 +89,15 @@ void vga_puts(unsigned char *str)
     int i = 0;
     while (*(str+i) != '\0')
     {
-        vga_putch((str+i++));
+        vga_putch(*(str+i++));
     }
 }
 
 void vga_clear(void)
 {
     int i;
-    uint16_t space =  = VGA_WORD( VGA_ATTRIB( VGA_COLOR_BLACK,
-                                              VGA_COLOR_BLACK), ' ');
+    uint16_t space = VGA_WORD( VGA_ATTRIB( VGA_COLOR_BLACK,
+                                           VGA_COLOR_BLACK), ' ');
 
     // Set entire screen to spaces
     for (i=0; i<VGA_SCREEN_HEIGHT*VGA_SCREEN_WIDTH; i++)
@@ -124,8 +125,8 @@ static void _vga_move_cursor(void)
 static void _vga_scroll(void)
 {
     int diff;
-    uint16_t space =  = VGA_WORD( VGA_ATTRIB( VGA_COLOR_BLACK,
-                                              VGA_COLOR_BLACK), ' ');
+    uint16_t space = VGA_WORD( VGA_ATTRIB( VGA_COLOR_BLACK,
+                                           VGA_COLOR_BLACK), ' ');
 
     // Cursor went past bottom of screen
     if (_cursor_y >= VGA_SCREEN_HEIGHT)

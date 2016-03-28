@@ -13,9 +13,15 @@
 //******************************************************************************
 #include <string.h>
 #include <system.h>
+#include <vga.h>
 
+// Entry point to part of kernel written in C
 int main()
 {
+    const char *hello_world = "Hello world!";
+
+    vga_clear();
+    vga_puts((unsigned char*)hello_world);
 
     // Infinite loop
     while (1);

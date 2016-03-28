@@ -40,7 +40,7 @@
 #define VGA_COLOR_WHITE             15
 
 #define VGA_WORD(a, c) ((a << 8) | c)
-#define VGA_ATTRIB (fg, bg) (fg | (bg << 4))
+#define VGA_ATTRIB(f, b) (f | (b << 4))
 
 //******************************************************************************
 // Function Prototypes
