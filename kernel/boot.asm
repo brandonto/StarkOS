@@ -8,7 +8,9 @@
 ; perhaps setting up the GDT and segments. Please note that interrupts
 ; are disabled at this point: More on interrupts later!
 [BITS 32]
+
 global start
+
 start:
     mov esp, _sys_stack     ; This points the stack to our new stack area
     jmp stublet
@@ -40,8 +42,8 @@ mboot:
 
 ; Call start and sit in infinite loop.
 stublet:
-    extern _start
-    call _start
+    extern main
+    call main
     jmp $
 
 

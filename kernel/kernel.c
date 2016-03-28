@@ -1,7 +1,7 @@
 #include <string.h>
 #include <system.h>
 
-void start()
+int main()
 {
 
     // Infinit loop
