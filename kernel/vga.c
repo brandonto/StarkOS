@@ -1,8 +1,8 @@
 //******************************************************************************
 //
-// string.c
+// vga.c
 //
-// String library for StarkOS.
+// VGA driver for StarkOS.
 //
 // Copyright (c) 2016 Brandon To
 // This code is licensed under BSD license (see LICENSE.txt for details)
@@ -11,23 +11,31 @@
 // March 27, 2016
 //
 //******************************************************************************
-#include <string.h>
+#include <vga.h>
 
-void *memcpy(void *dest, const void *src, size_t n)
+// Address of VGA memory buffer
+static uint16_t *_vga_memptr = (*uint16_t)0xB8000;
+static int attribute = 0x0F;
+static int cursor_x = 0;
+static int cursor_y = 0;
+
+void vga_settextcolor(uint8_t forecolor, uint8_t backcolor)
 {
     // TODO (Brandon): Implementation
-    return dest;
 }
 
-void *memset(void *s, int c, size_t n)
+void vga_putch(unsigned char c)
 {
     // TODO (Brandon): Implementation
-    return s;
 }
 
-size_t strlen(const char *s)
+void vga_puts(unsigned char *str)
 {
     // TODO (Brandon): Implementation
-    return 0;
+}
+
+void vga_clear(void)
+{
+    // TODO (Brandon): Implementation
 }
 
