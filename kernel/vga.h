@@ -42,6 +42,12 @@
 #define VGA_WORD(a, c) ((a << 8) | c)
 #define VGA_ATTRIB(f, b) (f | (b << 4))
 
+#define VDC_INDEX                   0x3D4
+#define VDC_DATA                    0x3D5
+
+#define CRT_CURSOR_HIGH_REG         0x0E
+#define CRT_CURSOR_LOW_REG          0x0F
+
 //******************************************************************************
 // Function Prototypes
 //******************************************************************************

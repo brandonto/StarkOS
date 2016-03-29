@@ -116,10 +116,10 @@ static void _vga_move_cursor(void)
     uint16_t location = _cursor_y*VGA_SCREEN_WIDTH + _cursor_x;
 
     // Write to register of VGA controller that dictates blinking cursor
-    outportb(0x3D4, 14);
-    outportb(0x3D5, (uint8_t)((location >> 8)) | 0xFF);
-    outportb(0x3D4, 15);
-    outportb(0x3D5, (uint8_t)(location | 0xFF));
+    outportb(VDC_INDEX, CRT_CURSOR_HIGH_REG);
+    outportb(VDC_DATA, (uint8_t)((location >> 8)) | 0xFF);
+    outportb(VDC_INDEX, CRT_CURSOR_LOW_REG);
+    outportb(VDC_DATA, (uint8_t)(location | 0xFF));
 }
 
 static void _vga_scroll(void)
