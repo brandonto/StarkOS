@@ -48,15 +48,24 @@ global gdt_flush
 extern gdtptr
 gdt_flush:
     lgdt [gdtptr]   ; Load GDT
-    mov ax, 0x10   ; 0x10 is the offset in the GDT to data segment
-    mov ds, ax
+    mov ax, 0x10    ; 0x10 is the offset to data segment
+    mov ds, ax      ; Loads every data segment with offset
     mov es, ax
     mov fs, ax
     mov gs, ax
     mov ss, ax
-    jmp 0x08:flush2 ; 0x08 is the offset in the GDT to code segment
+
+    ; Far jump sets code segment
+    jmp 0x08:flush2 ; 0x08 is the offset to code segment
 flush2:
-    ret             ; Returns to C
+    ret
+
+; Load the IDT
+global idt_load
+extern idtptr
+idt_load:
+    lidt [idtptr]   ; Load IDT
+    ret
 
 ; In just a few pages in this tutorial, we will add our Interrupt
 ; Service Routines (ISRs) right here!

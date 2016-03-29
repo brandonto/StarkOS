@@ -32,7 +32,7 @@ void gdt_init(void)
     // Data segment
     gdt_set_gate(2, 0, 0xFFFFFFFF, 0x92, 0xCF);
 
-    // Install changes to GDT
+    // Load new GDT into registers
     gdt_flush();
 }
 

@@ -12,6 +12,7 @@
 //
 //******************************************************************************
 #include <gdt.h>
+#include <idt.h>
 #include <string.h>
 #include <system.h>
 #include <vga.h>
@@ -23,6 +24,9 @@ int main()
 
     // Set up global descriptor table
     gdt_init();
+
+    // Set up interrupt descriptor table
+    idt_init();
 
     // Hello world test
     vga_clear();
