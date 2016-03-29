@@ -1,31 +1,26 @@
 //******************************************************************************
 //
-// stdint.h
+// stddef.h
 //
-// Primative typedefs for StarkOS.
+// Standard definitions for StarkOS.
 //
 // Copyright (c) 2016 Brandon To
 // This code is licensed under BSD license (see LICENSE.txt for details)
 //
 // Created:
-// March 27, 2016
+// March 28, 2016
 //
 //******************************************************************************
-#ifndef __STDINT_H__
-#define __STDINT_H__
+#ifndef __STDDEF_H__
+#define __STDDEF_H__
 
 //******************************************************************************
 // Defines and Macros
 //******************************************************************************
-typedef unsigned long   uint64_t;
-typedef long            int64_t;
-typedef unsigned int    uint32_t;
-typedef int             int32_t;
-typedef unsigned short  uint16_t;
-typedef short           int16_t;
-typedef unsigned char   uint8_t;
-typedef char            int8_t;
-typedef unsigned int    size_t;
+#define NULL 0
 
-#endif /* __STDINT_H__ */
+typedef int                     ptrdiff_t;
+typedef unsigned int            size_t;
+
+#endif /* __STDDEF_H__ */
 
