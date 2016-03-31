@@ -13,6 +13,7 @@
 //******************************************************************************
 #include <gdt.h>
 #include <idt.h>
+#include <isr.h>
 #include <string.h>
 #include <system.h>
 #include <vga.h>
@@ -20,7 +21,8 @@
 // Entry point to part of kernel written in C
 int main()
 {
-    const char *hello_world = "Hello world!";
+    char *hello_world = "Hello world!";
+    int val;
 
     // Set up global descriptor table
     gdt_init();
@@ -28,9 +30,15 @@ int main()
     // Set up interrupt descriptor table
     idt_init();
 
+    // Set up ISRs
+    isr_init();
+
     // Hello world test
     vga_clear();
-    vga_puts((unsigned char*)hello_world);
+    vga_puts(hello_world);
+
+    // Divide by zero test
+    val = 1/0;
 
     // Infinite loop
     while (1);

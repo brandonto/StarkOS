@@ -52,8 +52,8 @@
 // Function Prototypes
 //******************************************************************************
 extern void vga_settextcolor(uint8_t forecolor, uint8_t backcolor);
-extern void vga_putch(unsigned char c);
-extern void vga_puts(unsigned char *str);
+extern void vga_putch(char c);
+extern void vga_puts(char *str);
 extern void vga_clear(void);
 
 #endif /* __VGA_H__ */

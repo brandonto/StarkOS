@@ -31,7 +31,7 @@ void vga_settextcolor(uint8_t forecolor, uint8_t backcolor)
     _attribute = VGA_ATTRIB(forecolor, backcolor);
 }
 
-void vga_putch(unsigned char c)
+void vga_putch(char c)
 {
     uint16_t *mem_loc;
 
@@ -84,7 +84,7 @@ void vga_putch(unsigned char c)
     _vga_move_cursor();
 }
 
-void vga_puts(unsigned char *str)
+void vga_puts(char *str)
 {
     int i = 0;
     while (*(str+i) != '\0')
