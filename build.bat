@@ -14,10 +14,11 @@ i686-elf-gcc -Wall -O -fstrength-reduce -fomit-frame-pointer -finline-functions 
 i686-elf-gcc -Wall -O -fstrength-reduce -fomit-frame-pointer -finline-functions -nostdinc -fno-builtin -ffreestanding -std=gnu99 -I./kernel -c -o gdt.o ./kernel/gdt.c
 i686-elf-gcc -Wall -O -fstrength-reduce -fomit-frame-pointer -finline-functions -nostdinc -fno-builtin -ffreestanding -std=gnu99 -I./kernel -c -o idt.o ./kernel/idt.c
 i686-elf-gcc -Wall -O -fstrength-reduce -fomit-frame-pointer -finline-functions -nostdinc -fno-builtin -ffreestanding -std=gnu99 -I./kernel -c -o isr.o ./kernel/isr.c
+i686-elf-gcc -Wall -O -fstrength-reduce -fomit-frame-pointer -finline-functions -nostdinc -fno-builtin -ffreestanding -std=gnu99 -I./kernel -c -o pic.o ./kernel/pic.c
 echo Compiling complete.
 
 echo Linking...
-i686-elf-gcc -T ./build/linker.ld -o ./bin/kernel_image.bin -ffreestanding -nostdlib boot.o kernel.o string.o system.o vga.o gdt.o idt.o isr.o
+i686-elf-gcc -T ./build/linker.ld -o ./bin/kernel_image.bin -ffreestanding -nostdlib boot.o kernel.o string.o system.o vga.o gdt.o idt.o isr.o pic.o
 echo Linking complete.
 
 del *.o
