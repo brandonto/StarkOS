@@ -46,7 +46,7 @@ struct gdt_ptr
 extern void gdt_init(void);
 extern void gdt_set_gate(uint32_t num, uint64_t base, uint64_t limit,
         uint8_t access, uint8_t gran);
-extern void gdt_flush(void);
+extern void gdt_load(void);
 
 #endif /* __GDT_H__ */
 

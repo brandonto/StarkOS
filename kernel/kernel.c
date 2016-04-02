@@ -13,6 +13,7 @@
 //******************************************************************************
 #include <gdt.h>
 #include <idt.h>
+#include <irq.h>
 #include <isr.h>
 #include <string.h>
 #include <system.h>
@@ -22,7 +23,6 @@
 int main()
 {
     char *hello_world = "Hello world!";
-    int val;
 
     // Set up global descriptor table
     gdt_init();
@@ -30,15 +30,15 @@ int main()
     // Set up interrupt descriptor table
     idt_init();
 
-    // Set up ISRs
+    // Set up interrupt service routines
     isr_init();
+
+    // Set up interrupt requets
+    irq_init();
 
     // Hello world test
     vga_clear();
     vga_puts(hello_world);
-
-    // Divide by zero test
-    val = 1/0;
 
     // Infinite loop
     while (1);

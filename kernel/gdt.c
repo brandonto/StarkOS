@@ -33,7 +33,7 @@ void gdt_init(void)
     gdt_set_gate(2, 0, 0xFFFFFFFF, 0x92, 0xCF);
 
     // Load new GDT into registers
-    gdt_flush();
+    gdt_load();
 }
 
 void gdt_set_gate(uint32_t num, uint64_t base, uint64_t limit, uint8_t access,

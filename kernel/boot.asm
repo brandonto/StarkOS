@@ -1,7 +1,7 @@
 ;
 ; start.asm
 ;
-; Entry point for Kernel. Taken from Bran's Kernel Development.
+; Entry point for Kernel.
 ;
 
 [BITS 32]
@@ -13,10 +13,9 @@ start:
     mov esp, _sys_stack
     jmp stublet
 
-; This part MUST be 4byte aligned, so we solve that issue using 'ALIGN 4'
+; 4 byte aligned
 ALIGN 4
 mboot:
-    ; Multiboot macros to make a few lines later more readable
     MULTIBOOT_PAGE_ALIGN    equ 1<<0
     MULTIBOOT_MEMORY_INFO   equ 1<<1
     MULTIBOOT_AOUT_KLUDGE   equ 1<<16
@@ -25,7 +24,7 @@ mboot:
     MULTIBOOT_CHECKSUM      equ -(MULTIBOOT_HEADER_MAGIC + MULTIBOOT_HEADER_FLAGS)
     EXTERN code, bss, end
 
-    ; This is the GRUB Multiboot header. A boot signature
+    ; GRUB Multiboot header (boot signature)
     dd MULTIBOOT_HEADER_MAGIC
     dd MULTIBOOT_HEADER_FLAGS
     dd MULTIBOOT_CHECKSUM
@@ -44,9 +43,9 @@ stublet:
     jmp $
 
 ; Load the GDT
-global gdt_flush
+global gdt_load
 extern gdtptr
-gdt_flush:
+gdt_load:
     lgdt [gdtptr]   ; Load GDT
     mov ax, 0x10    ; 0x10 is the offset to data segment
     mov ds, ax      ; Loads every data segment with offset
@@ -56,8 +55,8 @@ gdt_flush:
     mov ss, ax
 
     ; Far jump sets code segment
-    jmp 0x08:flush2 ; 0x08 is the offset to code segment
-flush2:
+    jmp 0x08:loadcs ; 0x08 is the offset to code segment
+loadcs:
     ret
 
 ; Load the IDT
@@ -67,8 +66,7 @@ idt_load:
     lidt [idtptr]   ; Load IDT
     ret
 
-; In just a few pages in this tutorial, we will add our Interrupt
-; Service Routines (ISRs) right here!
+; Interrupt Service Routines
 global isr0
 global isr1
 global isr2
@@ -506,7 +504,6 @@ irq_common_stub:
     popa
     add esp, 8
     iret
-
 
 ; Stores the stack at the end of the BSS section
 SECTION .bss

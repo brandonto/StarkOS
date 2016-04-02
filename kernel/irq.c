@@ -13,7 +13,9 @@
 //******************************************************************************
 #include <irq.h>
 
+#include <idt.h>
 #include <pic.h>
+#include <system.h>
 
 // Array of function pointers for IRQ handlers
 void *irq_routines[16] =
@@ -58,6 +60,23 @@ void irq_uninstall_handler(uint32_t irq)
 
 void irq_handler(struct registers *r)
 {
-    // TODO (Brandon)
+    void (*handler)(struct registers *r);
+
+    // Find the correct ISR to run for this IRQ
+    handler = irq_routines[r->int_no - 32];
+    if (handler)
+    {
+        handler(r);
+    }
+
+    // IDT entry > 40 corresponds to IRQ8 to 15. Send an end of interrupt signal
+    // to slave controller.
+    if (r->int_no >= 40)
+    {
+        outportb(PIC_SLAVE_CMD, PIC_EOI);
+    }
+
+    // Send an end of interrupt signal to master controller
+    outportb(PIC_MASTER_CMD, PIC_EOI);
 }
 
