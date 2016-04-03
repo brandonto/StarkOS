@@ -15,6 +15,7 @@
 #include <idt.h>
 #include <irq.h>
 #include <isr.h>
+#include <pit.h>
 #include <string.h>
 #include <system.h>
 #include <vga.h>
@@ -36,8 +37,11 @@ int main()
     // Set up interrupt requets
     irq_init();
 
+    // Set up timer to 50hz
+    pit_init(50);
+
     // Enable interrupts
-    //__asm__ __volatile__ ("sti");
+    __asm__ __volatile__ ("sti");
 
     // Hello world test
     vga_clear();
