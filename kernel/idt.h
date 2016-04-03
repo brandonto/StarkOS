@@ -33,6 +33,22 @@ struct idt_entry
     uint8_t     base_high;
 } __attribute__((packed)); // Prevents compiler optimization
 
+//
+// Flags byte:
+// Bit 7: Segment in memory (used with virtual memory)
+// Bits 5-6: Descriptor privelege level
+//   0 = (Ring 0) Highest
+//   ...
+//   3 = (Ring 3) Lowest
+// Bit 4: Storage segment (always 0 for interrupts)
+// Bits 0-3: Gate type
+//   0b0101 = 80386 32-bit task gate
+//   0b0110 = 80286 16-bit interrupt gate
+//   0b0111 = 80286 16-bit trap gate
+//   0b1110 = 80386 32-bit interrupt gate
+//   0b1111 = 80386 32-bit trap gate
+//
+
 struct idt_ptr
 {
     uint16_t    limit;

@@ -36,6 +36,9 @@ int main()
     // Set up interrupt requets
     irq_init();
 
+    // Enable interrupts
+    //__asm__ __volatile__ ("sti");
+
     // Hello world test
     vga_clear();
     vga_puts(hello_world);

@@ -27,10 +27,10 @@ void gdt_init(void)
     gdt_set_gate(0, 0, 0, 0, 0);
 
     // Code segment
-    gdt_set_gate(1, 0, 0xFFFFFFFF, 0x9A, 0xCF);
+    gdt_set_gate(1, 0, 0xFFFFFFFF, 0x9A, 0xC0);
 
     // Data segment
-    gdt_set_gate(2, 0, 0xFFFFFFFF, 0x92, 0xCF);
+    gdt_set_gate(2, 0, 0xFFFFFFFF, 0x92, 0xC0);
 
     // Load new GDT into registers
     gdt_load();

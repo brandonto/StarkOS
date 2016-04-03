@@ -34,6 +34,38 @@ struct gdt_entry
     uint8_t     base_high;
 } __attribute__((packed)); // Prevents compiler optimization
 
+//
+// Access byte:
+// Bit 7: Segment in memory (used with virtual memory)
+// Bits 5-6: Descriptor privelege level
+//   0 = (Ring 0) Highest
+//   ...
+//   3 = (Ring 3) Lowest
+// Bit 4: Descriptor bit
+//   0 = System descriptor
+//   1 = Code or data descriptor
+// Bits 1-3: Descriptor type
+//   Bit 3: Executable segment
+//     0 = Data segment (non-executable)
+//     1 = Code segment (executable)
+//   Bit 2: Expansion direction (Data segment); Conforming (Code segment)
+//   Bit 1: Reable and writable
+//     0 = Read only (Data segment); Execute only (Code Segment)
+//     1 = Read/write (Data segment); Read/execute (Code Segment)
+// Bit 0: Access bit (used with virtual memory)
+//
+// Granularity byte:
+// Bit 7: Granularity bit
+//   0 = None
+//   1 = Limit is multiplied by 4k
+// Bit 6: Segment type
+//   0 = 16-bit
+//   1 = 32-bit
+// Bit 5: Reserved (should be 0)
+// Bit 4: Reserved
+// Bits 0-3: Bits 16-19 of the segment limit
+//
+
 struct gdt_ptr
 {
     uint16_t    limit;
