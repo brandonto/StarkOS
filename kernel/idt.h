@@ -30,7 +30,7 @@ struct idt_entry
     uint16_t    sel;
     uint8_t     zero;
     uint8_t     flags;
-    uint8_t     base_high;
+    uint16_t     base_high;
 } __attribute__((packed)); // Prevents compiler optimization
 
 //

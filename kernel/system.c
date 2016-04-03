@@ -15,9 +15,9 @@
 
 uint8_t inportb(uint16_t port)
 {
-    unsigned char rv;
-    __asm__ __volatile__ ("inb %1, %0" : "=a" (rv) : "dN" (port));
-    return rv;
+    uint8_t in;
+    __asm__ __volatile__ ("inb %1, %0" : "=a" (in) : "dN" (port));
+    return in;
 }
 
 void outportb(uint16_t port, uint8_t data)

@@ -105,7 +105,7 @@ void fault_handler(struct registers *r)
     {
         vga_puts(exception_messages[r->int_no]);
         vga_puts(" Exception. System Halted!\n");
-        for (;;);
+        while (1);
     }
 }
 
