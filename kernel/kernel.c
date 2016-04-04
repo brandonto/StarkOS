@@ -21,7 +21,7 @@
 #include <vga.h>
 
 // Entry point to part of kernel written in C
-int main()
+int kernel_main()
 {
     char *hello_world = "Hello world!";
 
