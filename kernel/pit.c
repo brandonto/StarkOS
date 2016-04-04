@@ -18,7 +18,7 @@
 #include <system.h>
 
 // Number of ticks on timer
-static uint32_t _ticks = 0;
+static volatile uint32_t _ticks = 0;
 
 // ISR for counter 0. Increments number of ticks.
 static void _counter_0_isr(struct registers *r)
@@ -46,6 +46,10 @@ void pit_counter_0_delay(uint32_t ticks)
     uint64_t total_ticks = _ticks + ticks;
 
     // Loop until total_ticks is reached
-    while (total_ticks >= _ticks);
+    while (total_ticks >= _ticks)
+    {
+        // Puts processor to sleep
+        __asm__ __volatile__ ("sti//hlt//cli");
+    };
 }
 
