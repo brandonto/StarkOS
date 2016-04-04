@@ -1,5 +1,6 @@
 @echo off
 
+if not exist "./bin" mkdir "./bin"
 del ./bin/kernel_image.bin 2>NUL 1>NUL
 
 echo Assembling...
