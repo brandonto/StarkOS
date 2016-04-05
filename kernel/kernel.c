@@ -21,11 +21,23 @@
 #include <system.h>
 #include <vga.h>
 
+static char *_stark_os_logo =
+"\n\n\n \
+        _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/\n\
+        \n\
+       _/_/_/_/  _/_/_/_/  _/_/_/_/  _/_/_/    _/    _/    _/_/_/_/  _/_/_/_/\n\
+      _/           _/     _/    _/  _/    _/  _/  _/      _/    _/  _/\n\
+     _/_/_/_/     _/     _/_/_/_/  _/_/_/    _/_/        _/    _/  _/_/_/_/\n\
+          _/     _/     _/    _/  _/   _/   _/  _/      _/    _/        _/\n\
+   _/_/_/_/     _/     _/    _/  _/    _/  _/    _/    _/_/_/_/  _/_/_/_/\n\
+   \n\
+  _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/\n\
+   \n Copyright (c) 2016 Brandon To\n\
+\n\n\n";
+
 // Entry point to part of kernel written in C
 int kernel_main()
 {
-    char *hello_world = "Hello world!";
-
     // Set up global descriptor table
     gdt_init();
 
@@ -47,9 +59,9 @@ int kernel_main()
     // Enable interrupts
     __asm__ __volatile__ ("sti");
 
-    // Hello world test
+    // Logo
     vga_clear();
-    vga_puts(hello_world);
+    vga_puts(_stark_os_logo);
 
     // Infinite loop
     while (1);
