@@ -18,7 +18,7 @@
 
 // Address of VGA memory buffer
 static uint16_t *_vga_memptr = (uint16_t*)0xB8000;
-static uint8_t _attribute = 0x0F;
+static uint8_t _attribute = VGA_ATTRIB(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
 static int _cursor_x = 0;
 static int _cursor_y = 0;
 
@@ -124,7 +124,9 @@ static void _vga_move_cursor(void)
 
 static void _vga_scroll(void)
 {
+    int i;
     int diff;
+    int last_row_index = VGA_SCREEN_WIDTH*(VGA_SCREEN_HEIGHT-1);
     uint16_t space = VGA_WORD( VGA_ATTRIB( VGA_COLOR_BLACK,
                                            VGA_COLOR_BLACK), ' ');
 
@@ -132,7 +134,7 @@ static void _vga_scroll(void)
     if (_cursor_y >= VGA_SCREEN_HEIGHT)
     {
         // Calculate how far the cursor passes screen height
-        diff = _cursor_y - VGA_SCREEN_HEIGHT - 1;
+        diff = _cursor_y - (VGA_SCREEN_HEIGHT - 1);
 
         // Shift every row from the first row until the row before the cursor
         // up by one row
@@ -140,9 +142,10 @@ static void _vga_scroll(void)
                 VGA_SCREEN_WIDTH*(VGA_SCREEN_HEIGHT-diff)*sizeof(uint16_t));
 
         // Clear the new last row
-        memset( _vga_memptr+VGA_SCREEN_WIDTH*(VGA_SCREEN_HEIGHT-1),
-                space,
-                VGA_SCREEN_WIDTH);
+        for (i=0; i<VGA_SCREEN_WIDTH; i++)
+        {
+            _vga_memptr[last_row_index+i] = space;
+        }
 
         // Move cursor to last row
         _cursor_y = VGA_SCREEN_HEIGHT - 1;
