@@ -16,6 +16,7 @@
 #include <irq.h>
 #include <isr.h>
 #include <system.h>
+#include <vga.h>
 
 // Number of ticks on timer
 static volatile uint32_t _ticks = 0;
@@ -31,7 +32,7 @@ void pit_init(uint32_t hz)
     uint32_t divisor = PIT_DIVISOR / hz;
 
     // Install ISR (IRQ0) for counter 0
-    irq_install_handler(0, &_counter_0_isr);
+    irq_install_handler(IRQ0, &_counter_0_isr);
 
     // Configure counter 0 to square mode and prepare it to read LSB then MSB
     outportb(PIT_CMD_REG, PIT_CW_SC_0 | PIT_CW_RW_LSB_MSB | PIT_CW_MODE_3);

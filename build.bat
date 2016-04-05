@@ -18,10 +18,11 @@ i686-elf-gcc -Wall -O -fstrength-reduce -fomit-frame-pointer -finline-functions 
 i686-elf-gcc -Wall -O -fstrength-reduce -fomit-frame-pointer -finline-functions -nostdinc -fno-builtin -ffreestanding -std=gnu99 -I./kernel -c -o irq.o ./kernel/irq.c
 i686-elf-gcc -Wall -O -fstrength-reduce -fomit-frame-pointer -finline-functions -nostdinc -fno-builtin -ffreestanding -std=gnu99 -I./kernel -c -o pic.o ./kernel/pic.c
 i686-elf-gcc -Wall -O -fstrength-reduce -fomit-frame-pointer -finline-functions -nostdinc -fno-builtin -ffreestanding -std=gnu99 -I./kernel -c -o pit.o ./kernel/pit.c
+i686-elf-gcc -Wall -O -fstrength-reduce -fomit-frame-pointer -finline-functions -nostdinc -fno-builtin -ffreestanding -std=gnu99 -I./kernel -c -o ps2_kb.o ./kernel/ps2_kb.c
 echo Compiling complete.
 
 echo Linking...
-i686-elf-ld -T ./build/linker.ld -o ./bin/kernel_image.bin boot.o kernel.o string.o system.o vga.o gdt.o idt.o isr.o irq.o pic.o pit.o
+i686-elf-ld -T ./build/linker.ld -o ./bin/kernel_image.bin boot.o kernel.o string.o system.o vga.o gdt.o idt.o isr.o irq.o pic.o pit.o ps2_kb.o
 echo Linking complete.
 
 del *.o
