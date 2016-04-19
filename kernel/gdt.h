@@ -58,7 +58,7 @@ struct gdt_entry
 // Bit 7: Granularity bit
 //   0 = None
 //   1 = Limit is multiplied by 4k
-// Bit 6: Segment type
+// Bit 6: Default flag (Segment type, for backwards compatibility)
 //   0 = 16-bit
 //   1 = 32-bit
 // Bit 5: Reserved (should be 0)
