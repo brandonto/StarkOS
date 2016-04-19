@@ -15,11 +15,15 @@
 #include <idt.h>
 #include <irq.h>
 #include <isr.h>
+#include <multiboot.h>
 #include <pit.h>
 #include <ps2_kb.h>
+#include <stdint.h>
 #include <string.h>
 #include <system.h>
 #include <vga.h>
+
+#include <stdlib.h>
 
 static char *_stark_os_logo =
 "\n\n\n \
@@ -36,32 +40,25 @@ static char *_stark_os_logo =
 \n\n\n";
 
 // Entry point to part of kernel written in C
-int kernel_main()
+int kernel_main(uint64_t multiboot_info_addr)
 {
-    // Set up global descriptor table
+    // Initialization
     gdt_init();
-
-    // Set up interrupt descriptor table
     idt_init();
-
-    // Set up interrupt service routines
     isr_init();
-
-    // Set up interrupt requets
     irq_init();
-
-    // Set up timer to 50hz
     pit_init(50);
-
-    // Set up keyboard
     ps2_kb_init();
 
     // Enable interrupts
     __asm__ __volatile__ ("sti");
 
-    // Logo
+    // Display StarkOS logo
     vga_clear();
     vga_puts(_stark_os_logo);
+
+    //vga_puts(itoa(255, buf, 10));
+    vga_printf("Hello world! %d, %x, %s\n", 255, 255, "255");
 
     // Infinite loop
     while (1);

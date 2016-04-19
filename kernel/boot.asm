@@ -59,6 +59,9 @@ _start:
     ; our stack (as it grows downwards).
     mov esp, stack_top
 
+    ; Push pointer to the Multiboot information structure
+    push ebx
+
     ; We are now ready to actually execute C code. We cannot embed that in an
     ; assembly file, so we'll create a kernel.c file in a moment. In that file,
     ; we'll create a C entry point called kernel_main and call it here.
