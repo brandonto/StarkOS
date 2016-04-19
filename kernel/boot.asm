@@ -5,11 +5,12 @@
 ;
 
 ; Declare constants used for creating a multiboot header.
-MBALIGN     equ  1<<0                   ; align loaded modules on page boundaries
-MEMINFO     equ  1<<1                   ; provide memory map
-FLAGS       equ  MBALIGN | MEMINFO      ; this is the Multiboot 'flag' field
-MAGIC       equ  0x1BADB002             ; 'magic number' lets bootloader find the header
-CHECKSUM    equ -(MAGIC + FLAGS)        ; checksum of above, to prove we are multiboot
+MBALIGN     equ  1<<0                       ; align loaded modules on page boundaries
+MEMINFO     equ  1<<1                       ; provide memory info
+MMAPINFO    equ  1<<6                       ; provide memory map info
+FLAGS       equ  MBALIGN|MEMINFO|MMAPINFO   ; this is the Multiboot 'flag' field
+MAGIC       equ  0x1BADB002                 ; 'magic number' lets bootloader find the header
+CHECKSUM    equ -(MAGIC + FLAGS)            ; checksum of above, to prove we are multiboot
 
 ; Declare a header as in the Multiboot Standard. We put this into a special
 ; section so we can force the header to be in the start of the final program.

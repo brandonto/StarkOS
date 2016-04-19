@@ -21,6 +21,7 @@ char *itoa(int val, char *buf, int base)
     char *q = buf;
     char temp;
     int remainder;
+    uint64_t uval = val;
 
     // Handles 0 case
     if (val == 0)
@@ -35,16 +36,16 @@ char *itoa(int val, char *buf, int base)
     {
         *p++ = '-';
         q++;
-        val = -val;
+        uval = -val;
     }
 
     // Extract digits from value. Result is in reverse order.
     do
     {
-        remainder = val % base;
+        remainder = uval % base;
         *p++ = (remainder > 9)?'A'+remainder-10:'0'+remainder;
-        val = val / base;
-    } while (val != 0);
+        uval = uval / base;
+    } while (uval != 0);
 
     // Append null terminator
     *p = '\0';
