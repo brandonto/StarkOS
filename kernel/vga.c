@@ -13,6 +13,8 @@
 //******************************************************************************
 #include <vga.h>
 
+#include <stddef.h>
+#include <stdlib.h>
 #include <string.h>
 #include <system.h>
 
@@ -108,6 +110,58 @@ void vga_clear(void)
     // Reset cursor
     _cursor_x = 0;
     _cursor_y = 0;
+}
+
+void vga_printf(const char *format, ...)
+{
+    char **args = (char **)&format;
+    char buf[20];
+    char *p = NULL;
+    char c;
+
+    // This makes pointer point to address of first variable argument
+    args++;
+
+    while ((c = *format++) != '\0')
+    {
+        if (c != '%')
+        {
+            vga_putch(c);
+        }
+        else
+        {
+            c = *format++;
+            switch(c)
+            {
+                case 'd':
+                case 'u':
+                    p = itoa(*((int*)args++), buf, 10);
+                    break;
+
+                case 'x':
+                    p = itoa(*((int*)args++), buf, 16);
+                    break;
+
+                case 's':
+                    p = *args++;
+                    if (p == NULL)
+                    {
+                        p = "(null)";
+                    }
+                    break;
+
+                default:
+                    vga_putch(**args++);
+                    break;
+            }
+
+            if (p != NULL)
+            {
+                vga_puts(p);
+                p = NULL;
+            }
+        }
+    }
 }
 
 static void _vga_move_cursor(void)

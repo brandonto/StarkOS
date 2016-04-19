@@ -55,6 +55,7 @@ extern void vga_settextcolor(uint8_t forecolor, uint8_t backcolor);
 extern void vga_putch(char c);
 extern void vga_puts(char *str);
 extern void vga_clear(void);
+extern void vga_printf(const char *format, ...);
 
 #endif /* __VGA_H__ */
 
