@@ -1,7 +1,7 @@
 @echo off
 
 if not exist "./bin" mkdir "./bin"
-del ./bin/kernel_image.bin 2>NUL 1>NUL
+del ./bin/stark_os.bin 2>NUL 1>NUL
 
 echo Assembling...
 nasm -f elf32 -o boot.o ./kernel/boot.asm
@@ -24,7 +24,7 @@ i686-elf-gcc -Wall -O -fstrength-reduce -fomit-frame-pointer -finline-functions 
 echo Compiling complete.
 
 echo Linking...
-i686-elf-ld -T ./build/linker.ld -o ./bin/kernel_image.bin boot.o kernel.o string.o system.o vga.o gdt.o idt.o isr.o irq.o pic.o pit.o ps2_kb.o stdlib.o
+i686-elf-ld -T ./build/linker.ld -o ./bin/stark_os.bin boot.o kernel.o string.o system.o vga.o gdt.o idt.o isr.o irq.o pic.o pit.o ps2_kb.o stdlib.o
 echo Linking complete.
 
 del *.o
