@@ -5,13 +5,16 @@ KERNELIMAGE = stark_os.bin
 KERNELISO = stark_os.iso
 GRUBCONF = grub.cfg
 
-.PHONY: all kernel clean
+.PHONY: all run kernel clean
 
 all: clean kernel
 	mkdir -p isodir/boot/grub
 	cp $(BDIR)/$(KERNELIMAGE) isodir/boot/$(KERNELIMAGE)
 	cp $(CONFDIR)/$(GRUBCONF) isodir/boot/grub/$(GRUBCONF)
 	grub-mkrescue -o isodir/$(KERNELISO) isodir
+
+run: all
+	./run.sh
 
 kernel:
 	mkdir -p $(BDIR)
