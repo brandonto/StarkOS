@@ -7,7 +7,7 @@ GRUBCONF = grub.cfg
 
 .PHONY: all kernel clean
 
-all: kernel
+all: clean kernel
 	mkdir -p isodir/boot/grub
 	cp $(BDIR)/$(KERNELIMAGE) isodir/boot/$(KERNELIMAGE)
 	cp $(CONFDIR)/$(GRUBCONF) isodir/boot/grub/$(GRUBCONF)
@@ -19,8 +19,6 @@ kernel:
 
 clean:
 	$(MAKE) -C kernel/ clean
-	rm -rf isodir/*
-	rmdir isodir
-	rm -f $(BDIR)/*
-	rmdir $(BDIR)
+	rm -rf isodir
+	rm -rf $(BDIR)
 

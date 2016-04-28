@@ -81,13 +81,21 @@ int kernel_main(uint32_t multiboot_info_addr)
                 mmap = (struct multiboot_mmap_entry*)((uint32_t)mmap
                     + mmap->size + sizeof(mmap->size)))
         {
-            vga_printf("base_addr_high = 0x%x, base_addr_low = 0x%x, "
+            /*vga_printf("base_addr_high = 0x%x, base_addr_low = 0x%x, "
                     "length_high = 0x%x, length_low = 0x%x, type = 0x%x\n",
                     mmap->addr >> 32,
                     mmap->addr & 0xFFFFFFFF,
                     mmap->len >> 32,
                     mmap->len & 0xFFFFFFFF,
-                    (uint32_t)mmap->type);
+                    (uint32_t)mmap->type);*/
+
+            vga_printf("base_addr_high = 0x%x, base_addr_low = 0x%x, "
+                    "length_high = 0x%x, length_low = 0x%x, type = 0x%x\n",
+                    mmap->addr_high,
+                    mmap->addr_low,
+                    mmap->len_high,
+                    mmap->len_low,
+                    mmap->type);
         }
     }
 
