@@ -62,6 +62,12 @@ _start:
     ; Push pointer to the Multiboot information structure
     push ebx
 
+    ; Push kernel memory bounds
+    extern kernel_physical_start
+    extern kernel_physical_end
+    push kernel_physical_end
+    push kernel_physical_start
+
     ; We are now ready to actually execute C code. We cannot embed that in an
     ; assembly file, so we'll create a kernel.c file in a moment. In that file,
     ; we'll create a C entry point called kernel_main and call it here.

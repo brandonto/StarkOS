@@ -40,7 +40,8 @@ static char *_stark_os_logo =
 \n\n";
 
 // Entry point to part of kernel written in C
-int kernel_main(uint32_t multiboot_info_addr)
+int kernel_main(uint32_t kernel_physical_start, uint32_t kernel_physical_end,
+        uint32_t multiboot_info_addr)
 {
     struct multiboot_info *mbi;
     struct multiboot_mmap_entry *mmap;
@@ -98,6 +99,10 @@ int kernel_main(uint32_t multiboot_info_addr)
                     mmap->type);
         }
     }
+
+    vga_printf("kernel_physical_start = 0x%x, kernel_physical_end = 0x%x\n",
+            kernel_physical_start, kernel_physical_end);
+
 
     // Infinite loop
     while (1);
