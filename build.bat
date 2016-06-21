@@ -21,10 +21,11 @@ i686-elf-gcc -Wall -O -fstrength-reduce -fomit-frame-pointer -finline-functions 
 i686-elf-gcc -Wall -O -fstrength-reduce -fomit-frame-pointer -finline-functions -nostdinc -fno-builtin -ffreestanding -std=gnu99 -I./kernel -c -o pit.o ./kernel/pit.c
 i686-elf-gcc -Wall -O -fstrength-reduce -fomit-frame-pointer -finline-functions -nostdinc -fno-builtin -ffreestanding -std=gnu99 -I./kernel -c -o ps2_kb.o ./kernel/ps2_kb.c
 i686-elf-gcc -Wall -O -fstrength-reduce -fomit-frame-pointer -finline-functions -nostdinc -fno-builtin -ffreestanding -std=gnu99 -I./kernel -c -o stdlib.o ./kernel/stdlib.c
+i686-elf-gcc -Wall -O -fstrength-reduce -fomit-frame-pointer -finline-functions -nostdinc -fno-builtin -ffreestanding -std=gnu99 -I./kernel -c -o paging.o ./kernel/paging.c
 echo Compiling complete.
 
 echo Linking...
-i686-elf-ld -T ./build/linker.ld -o ./bin/stark_os.bin boot.o kernel.o string.o system.o vga.o gdt.o idt.o isr.o irq.o pic.o pit.o ps2_kb.o stdlib.o
+i686-elf-ld -T ./build/linker.ld -o ./bin/stark_os.bin boot.o kernel.o string.o system.o vga.o gdt.o idt.o isr.o irq.o pic.o pit.o ps2_kb.o stdlib.o paging.o
 echo Linking complete.
 
 del *.o

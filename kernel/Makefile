@@ -9,7 +9,7 @@ CFLAGS = -I . -Wall -O -fstrength-reduce -fomit-frame-pointer -finline-functions
 LDFLAGS = -I . -T $(PROJROOT)/build/linker.ld
 
 ASMOBJS = boot.o
-COBJS = kernel.o string.o system.o vga.o gdt.o idt.o isr.o irq.o pic.o pit.o ps2_kb.o stdlib.o
+COBJS = kernel.o string.o system.o vga.o gdt.o idt.o isr.o irq.o pic.o pit.o ps2_kb.o stdlib.o paging.o
 OBJS = $(ASMOBJS) $(COBJS)
 
 KERNELIMAGE = $(BDIR)/stark_os.bin
